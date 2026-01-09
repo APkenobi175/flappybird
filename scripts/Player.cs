@@ -3,57 +3,58 @@ using System;
 
 public partial class Player : Node2D
 {
-
-	// Use these methods they way they are intended to be used
+		float vertical_velocity;
+		float gravity = 980f; // pixels per second squared
+		int flap_strength = -400; // pixels per second
 	
 	public override void _Ready()
 	{
-		// this is called when the node is added to the scene
-		// Called when the node enters the scene tree for the first time.
-		// also happens every time the node is added to the scene.
 		GD.Print("Player node is ready!");
-
 	}
 
 	public override void _Process(double delta)
 	{
-		// this is called every frame
-		// This is the primary game loop function.
-		// Every time we iterate through the loop we need to update things
-		// this method will be called hundreds of times per second
-		// you want it to be called as much as possible
-		// You should NOT do expensive operations here
-		// This process is basically the FPS counter of your game
-		GD.Print("Player is processing");
-		Position += new Vector2(200 * (float)delta, 0);
+
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		// this is called every physics frame
-		// This is similar to _process, but its capped at a fixed rate
-		// This is where you handle physics-related updates or simulations
-		// Godot defaults this to 60 frames per second
-		// Using Godots built in physics engine in here
-		GD.Print("Player physics is processing");
+
+		//GD.Print("Player is in physics process");
+		// Find the delta gravity
+		float delta_gravity = (float)delta * gravity;
+
+	
+		vertical_velocity += delta_gravity; // vertical velocity increases due to gravity, we apply the delta time to make it independent of frame rate. so every physics frame, the vertical velocity increases by gravity
+		if (Input.IsActionJustPressed("flap")) // If a player provides the flap input, apply the flap strength to the vertical velocity
+		{
+			vertical_velocity = flap_strength; // set the vertical velocity to the flap strength
+			//GD.Print("Flap!");
+			
+		}
+		float delta_velocity = vertical_velocity * (float)delta; // calculate the change in vertical position based on the vertical velocity and delta time
+		Position += new Vector2(0, delta_velocity); // update the players position based on its delta_vertical_velocity, so it will still apply to the bird, even if the flap button is not pressed
+
+
+		// clamp players position to not go above the sky
+		float min_y_pos = -600f; // minimum y position the player can go to
+		if (Position.Y < min_y_pos) // if the player is above the minimum y position
+		{
+			Position = new Vector2(Position.X, min_y_pos); // set the player's y position to the minimum y position
+			vertical_velocity = 0; // reset the vertical velocity
+		}
+		//GD.Print("Vertical Velocity: " + delta_velocity);
+
+
+
+		
 	}
 
 	public override void _Draw()
 	{
-		// this is called when the node is drawn to the screen
-		// You can use this to do custom drawing on the node
-		// For example drawing a sprite. You give it the image and it will draw the node
 		base._Draw();
-		GD.Print("Player is being drawn");
-		// The rendering is not dependant on the physics
-		// Your game should be entirely playable through its inputs
-		// without any rendering at all
-		// This is useful for debugging or visual effects
-		// You should never change the behavior of your game based on rendering
-
-		DrawCircle(new Vector2(Position.X, Position.Y), 10, Colors.Red);
-
-
+		//GD.Print("Player is being drawn");
+		DrawCircle(Vector2.Zero, 10, Colors.Blue);
 	}
 
 }

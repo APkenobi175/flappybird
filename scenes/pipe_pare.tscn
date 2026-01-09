@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bop0q5beb7hyl"]
+
+[ext_resource type="Script" uid="uid://lcqd5ygg5ivv" path="res://scripts/Pipes.cs" id="1_1fogd"]
+
+[node name="PipePare" type="Node2D"]
+position = Vector2(903, 334)
+script = ExtResource("1_1fogd")
+
+[node name="top_pipe" type="Area2D" parent="."]
+position = Vector2(-3, -92)
+
+[node name="Sprite2D" type="Sprite2D" parent="top_pipe"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="top_pipe"]
+
+[node name="bottom_pipe" type="Area2D" parent="."]
+position = Vector2(1, 43)
+
+[node name="Sprite2D" type="Sprite2D" parent="bottom_pipe"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bottom_pipe"]
+
+[node name="safe_zone" type="Area2D" parent="."]
+position = Vector2(-1, -29)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="safe_zone"]
