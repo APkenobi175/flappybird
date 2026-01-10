@@ -31,27 +31,42 @@ public partial class Pipes : Node2D
     }
 
     public override void _Draw()
-{
-    float w = 90f;        // pipe width
-    float gap = 180f;     // gap size (normal difficulty)
-    float H = 2000f;      // make pipes absurdly tall so they always cover the screen
+    {
+        float w = 90f; // pipe width
+        float gap = 180f; // gap between top and bottom pipes
 
-    // Top pipe: ends at -gap/2
-    DrawRect(
-        new Rect2(-w / 2f, -H, w, H - gap / 2f),
-        Colors.Green,
-        false,
-        2
-    );
+        float H = 2000f;   // VERY tall so pipes always extend off-screen
+        // The gap should always be at y = 0 + gap/2 for bottom pipe and y = 0 - gap/2 for top pipe so that the gap is always on screen
 
-    // Bottom pipe: starts at +gap/2
-    DrawRect(
-        new Rect2(-w / 2f, gap / 2f, w, H),
-        Colors.Green,
-        false,
-        2
-    );
-}
+        // Top pipe: ends at -gap/2, extends upward far off-screen, its bottom part should always be at at least y=0 
+        DrawRect(
+            new Rect2(-w / 2f, -H - gap / 2f, w, H),
+            Colors.Green,
+            false,
+            2
+        );
+
+        // Bottom pipe: starts at +gap/2, extends downward far off-screen, its top part should always be at least at y=649
+        DrawRect(
+            new Rect2(-w / 2f, gap / 2f, w, H),
+            Colors.Green,
+            false,
+            2
+        );
+
+        DrawRect( // Draw a white pipe outline around the GAP area for debugging
+            new Rect2(-w / 2f, -gap / 2f, w, gap),
+            Colors.White,
+            true,
+            0
+        );
+
+
+        DrawLine(new Vector2(-30, 0), new Vector2(30, 0), Colors.Red, 2);
+        DrawLine(new Vector2(0, -30), new Vector2(0, 30), Colors.Red, 2);
+
+    }
+
 
 
 }

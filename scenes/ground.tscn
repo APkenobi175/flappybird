@@ -1,7 +1,11 @@
-[gd_scene format=3 uid="uid://cbatrbi1cgoly"]
+[gd_scene load_steps=2 format=3 uid="uid://cbatrbi1cgoly"]
 
-[node name="Ground" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ylpw"]
+size = Vector2(2000, 100)
+
+[node name="Ground" type="StaticBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7ylpw")

@@ -1,23 +1,35 @@
 using Godot;
 using System;
 
-public partial class Player : Node2D
+public partial class Bird : CharacterBody2D
 {
-		float vertical_velocity;
-		float gravity = 980f; // pixels per second squared
-		int flap_strength = -400; // pixels per second
-	
-	public override void _Ready()
-	{
-		GD.Print("Player node is ready!");
-	}
+    float vertical_velocity;
+    float gravity = 980f; // pixels per second squared
+    int flap_strength = -400; // pixels per second
 
-	public override void _Process(double delta)
-	{
 
-	}
+    public override void _Ready()
+    {
+        GD.Print("Bird node is ready!");
+    }
 
-	public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
+
+
+    {
+
+        // Collision Check
+        
+        MoveAndSlide();
+        if (GetSlideCollisionCount() > 0)
+        {
+            GD.Print("Bird collided with something!");
+            die();
+        }
+
+    }
+
+	public override void _PhysicsProcess(double delta) // This is the exact same as Player.cs, but I messed up, so I think I need to move the bird with the player
 	{
 
 		//GD.Print("Player is in physics process");
@@ -37,10 +49,10 @@ public partial class Player : Node2D
 
 
 		// clamp players position to not go above the sky
-		float min_y_pos = -600f; // minimum y position the player can go to
-		if (Position.Y < min_y_pos) // if the player is above the minimum y position
+		float min_y_pos = 10f; // minimum y position the player can go to
+		if (GlobalPosition.Y < min_y_pos) // if the player is above the minimum y position
 		{
-			Position = new Vector2(Position.X, min_y_pos); // set the player's y position to the minimum y position
+			GlobalPosition = new Vector2(GlobalPosition.X, min_y_pos); // set the player's y position to the minimum y position
 			vertical_velocity = 0; // reset the vertical velocity
 		}
 		//GD.Print("Vertical Velocity: " + delta_velocity);
@@ -57,4 +69,9 @@ public partial class Player : Node2D
 		DrawCircle(Vector2.Zero, 10, Colors.Blue);
 	}
 
+    public void die()
+    {
+        GD.Print("Bird has died!");
+        GetTree().ReloadCurrentScene();
+    }
 }
