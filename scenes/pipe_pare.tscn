@@ -1,26 +1,50 @@
-[gd_scene load_steps=2 format=3 uid="uid://bop0q5beb7hyl"]
+[gd_scene load_steps=7 format=3 uid="uid://bop0q5beb7hyl"]
 
 [ext_resource type="Script" uid="uid://lcqd5ygg5ivv" path="res://scripts/Pipes.cs" id="1_1fogd"]
+[ext_resource type="Script" path="res://scenes/SafeZone.cs" id="2_hsb1x"]
+[ext_resource type="Texture2D" uid="uid://cheu0l3suugek" path="res://assets/tiles_and_pipes/Style 4/PipeStyle4.png" id="2_ic2wn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fogd"]
+size = Vector2(90, 2000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hsb1x"]
+size = Vector2(90, 2000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ic2wn"]
+size = Vector2(90, 180)
 
 [node name="PipePare" type="Node2D"]
-position = Vector2(903, 334)
+position = Vector2(0, 1)
 script = ExtResource("1_1fogd")
 
-[node name="top_pipe" type="Area2D" parent="."]
-position = Vector2(-3, -92)
+[node name="top_pipe" type="StaticBody2D" parent="."]
+position = Vector2(0, -1090)
 
 [node name="Sprite2D" type="Sprite2D" parent="top_pipe"]
+position = Vector2(3.0517578e-05, 941)
+scale = Vector2(2.9032261, 2.4872704)
+texture = ExtResource("2_ic2wn")
+region_enabled = true
+region_rect = Rect2(0, 0, 31.662926, 47.72016)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="top_pipe"]
+shape = SubResource("RectangleShape2D_1fogd")
 
-[node name="bottom_pipe" type="Area2D" parent="."]
-position = Vector2(1, 43)
+[node name="bottom_pipe" type="StaticBody2D" parent="."]
+position = Vector2(0, 1090)
 
 [node name="Sprite2D" type="Sprite2D" parent="bottom_pipe"]
+position = Vector2(-0.2500038, -926.75)
+scale = Vector2(2.8548384, 3.0531914)
+texture = ExtResource("2_ic2wn")
+region_enabled = true
+region_rect = Rect2(0, 0, 31.805275, 47.730354)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bottom_pipe"]
+shape = SubResource("RectangleShape2D_hsb1x")
 
 [node name="safe_zone" type="Area2D" parent="."]
-position = Vector2(-1, -29)
+script = ExtResource("2_hsb1x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="safe_zone"]
+shape = SubResource("RectangleShape2D_ic2wn")

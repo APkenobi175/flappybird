@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbatrbi1cgoly"]
+[gd_scene load_steps=3 format=3 uid="uid://cbatrbi1cgoly"]
+
+[ext_resource type="Texture2D" uid="uid://bcw3qrgwo6rqh" path="res://assets/tiles_and_pipes/Style 4/SimpleStyle4.png" id="1_pybca"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ylpw"]
 size = Vector2(2000, 100)
@@ -6,6 +8,11 @@ size = Vector2(2000, 100)
 [node name="Ground" type="StaticBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(6.000061, -1.5)
+scale = Vector2(31.587301, 2.84375)
+texture = ExtResource("1_pybca")
+region_enabled = true
+region_rect = Rect2(0, 47.50811, 63.99965, 32.49189)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7ylpw")
