@@ -32,6 +32,7 @@ script = ExtResource("3_tefeu")
 shape = SubResource("CircleShape2D_tbgi4")
 
 [node name="Sprite2D" type="Sprite2D" parent="bird"]
+texture_filter = 1
 scale = Vector2(2, 2)
 texture = ExtResource("5_o6xl0")
 region_enabled = true
