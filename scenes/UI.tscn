@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccniks3ikqf7r"]
+
+[ext_resource type="Script" uid="uid://pc2gkkoe2qmp" path="res://scripts/Ui.cs" id="1_dj8aq"]
+
+[node name="Ui" type="CanvasLayer"]
+script = ExtResource("1_dj8aq")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StartPanel" type="Control" parent="Root"]
+anchors_preset = 0
+offset_left = 295.0
+offset_right = 866.0
+offset_bottom = 639.0
+
+[node name="StartButton" type="Button" parent="Root/StartPanel"]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 474.0
+offset_right = 316.0
+offset_bottom = 549.0
+text = "START"
+
+[node name="GameOverPanel" type="Control" parent="Root"]
+anchors_preset = 0
+offset_left = 236.0
+offset_top = 1.0
+offset_right = 867.0
+offset_bottom = 644.0
+
+[node name="FinalScore" type="Label" parent="Root/GameOverPanel"]
+layout_mode = 0
+offset_left = 278.0
+offset_top = 264.0
+offset_right = 367.0
+offset_bottom = 303.0
+text = "Final Score:"
+
+[node name="RetryButton" type="Button" parent="Root/GameOverPanel"]
+layout_mode = 0
+offset_left = 267.0
+offset_top = 474.0
+offset_right = 375.0
+offset_bottom = 548.0
+text = "RETRY"

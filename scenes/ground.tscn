@@ -1,18 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbatrbi1cgoly"]
+[gd_scene load_steps=4 format=3 uid="uid://cbatrbi1cgoly"]
 
-[ext_resource type="Texture2D" uid="uid://bcw3qrgwo6rqh" path="res://assets/tiles_and_pipes/Style 4/SimpleStyle4.png" id="1_pybca"]
+[ext_resource type="Script" uid="uid://biulwlilv0hvw" path="res://scripts/Ground.cs" id="1_mi8v4"]
+[ext_resource type="Texture2D" uid="uid://cfbdwrfpv3o50" path="res://assets/tiles_and_pipes/tiles.png" id="1_pybca"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ylpw"]
-size = Vector2(2000, 100)
+size = Vector2(5996, 100)
 
-[node name="Ground" type="StaticBody2D"]
+[node name="Ground" type="Node2D"]
+script = ExtResource("1_mi8v4")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(6.000061, -1.5)
-scale = Vector2(31.587301, 2.84375)
-texture = ExtResource("1_pybca")
-region_enabled = true
-region_rect = Rect2(0, 47.50811, 63.99965, 32.49189)
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1859, 5)
 shape = SubResource("RectangleShape2D_7ylpw")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(1200, 0)
+autoscroll = Vector2(-200, 0)
+
+[node name="GroundA" type="TextureRect" parent="Parallax2D"]
+offset_left = -1003.0
+offset_top = -45.0
+offset_right = 197.0
+offset_bottom = -13.0
+scale = Vector2(3, 3)
+texture = ExtResource("1_pybca")
+stretch_mode = 1

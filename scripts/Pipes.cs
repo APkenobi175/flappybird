@@ -18,7 +18,7 @@ public partial class Pipes : Node2D
     float delta_movement = speed * (float)delta; // calculate movement based on delta time
     Position += new Vector2(-delta_movement, 0); // move pipes to the left
 
-    if (Position.X < -750f) // if pipes go off screen to the left
+    if (Position.X < -1200f) // if pipes go off screen to the left
     {
         QueueFree(); // remove pipes from scene
         GD.Print("pipe died");
