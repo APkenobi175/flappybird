@@ -19,6 +19,7 @@ public partial class Main : Node2D
     private Parallax2D groundParallax;
     private Ground ground;
 
+
     public override void _Ready()
     {
         ground = GetNode<Ground>("Ground");
@@ -127,10 +128,11 @@ public partial class Main : Node2D
 
     public void GameOver()
     {
-        ui.ShowGameOver(score);
+        ui.ShowGameOver(score, true);
         GetNode<Timer>("pipe_spawner").Stop();
 
         bird.canMove = false;
+        // Play the game over animation
     }
 
         public void OnBirdDied()
@@ -146,7 +148,10 @@ public partial class Main : Node2D
         ground.StopScrolling();
     }
 
-
-
+    internal void ResetGround()
+    {
+        // This will reset the ground scrolling, when the game is reset
+        ground.StartScrolling(200f);
+    }
 
 }
