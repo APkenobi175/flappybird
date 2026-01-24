@@ -4,10 +4,6 @@ using System;
 public partial class ScoreLabel : Label
 {
     int score;
-
-
-
-
     public override void _Ready()
     {
         GD.Print("ScoreLabel node is ready! at path: " + GetPath());

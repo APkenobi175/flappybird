@@ -3,32 +3,21 @@ using System;
 
 public partial class Main : Node2D
 {
-
-
     public int score = 0; // score variable to keep track of the player's score
-    private Ui ui; // reference to the UI node
-    private Bird bird; // reference to the bird node
-    
-    
-    // References to other nodes:
-    [Export] public PackedScene PipePairScene { get; set; } // Reference to the PipePair scene a PackedScene is used to instance scenes at runtime
-    private Node2D pipesContainer; // reference to the pipes container node
-    private ScoreLabel scoreLabel; // reference to the score label node
-
-    private SafeZone safeZone; // reference to the safe zone node
+    private Ui ui; 
+    private Bird bird; 
+    [Export] public PackedScene PipePairScene { get; set; } 
+    private Node2D pipesContainer; 
+    private ScoreLabel scoreLabel; 
+    private SafeZone safeZone; 
     private Parallax2D groundParallax;
     private Ground ground;
     private bool gameStarted = false;
-
     public int highScore;
     private HighScore highScoreLabel;
-
     public bool newHighScore = false;
     private Sky sky;
-
     private Audio audio;
-
-
     public override void _Ready()
     {
         ground = GetNode<Ground>("Ground");
@@ -46,11 +35,8 @@ public partial class Main : Node2D
         ui = GetNode<Ui>("Ui"); // get reference to the Ui node in the scene tree
         // Press the flap action to start the game
         ui.ShowStart(); // show the start screen
-
         ui.RetryButton.Pressed += RestartGame; // connect the RetryButton's Pressed signal to the RestartGame method
         pipesContainer = GetNode<Node2D>("pipes"); // in the scene tree in main this is the pipes 2d node, now that we have access to it we can modify it at runtime
-
-
         // call randomize once so that each time we run the game the randonm numbers are different
         GD.Randomize();
         
@@ -69,16 +55,6 @@ public partial class Main : Node2D
 
     }
 
-    public override void _PhysicsProcess(double delta)
-    {
-
-    }
-
-    public override void _Draw()
-    {
-
-    }
-
     private void _on_PipeSpawner_timeout()
     {
         // Instantiate the scene this means create an instance of one of the PipePair scenes
@@ -91,13 +67,12 @@ public partial class Main : Node2D
         pipe.GlobalPosition = new Vector2(spawnX, spawnY); // set the position of the pipe to the spawn coordinates
          // add the pipe as a child of the pipes container so it appears in the scene (which remember is called "pipes" in the main scene tree)
         var safeZone = pipe.GetNode<Area2D>("safe_zone"); // get reference to the safe zone node in the pipe pair
-        safeZone.BodyEntered += OnScored; // connect the BodyEntered signal to the OnScored method
+        safeZone.BodyEntered += OnScored; // connect the BodyEntered signal to the OnScored method this will have to only apply to the bird, which we will handle in the method
     }
     private void OnScored(Node body)
     {
 
-
-        if (body is Bird){
+        if (body is Bird){ // body that entered must be bird
         score += 1; // increment score by 1
         scoreLabel.setScore(score); // update score label
         audio.PlayScore();
@@ -122,6 +97,7 @@ public partial class Main : Node2D
         score = 0;
         ui.ShowStart(); // show the start screen
         scoreLabel.setScore(score);
+        // Delete all existing pipes
         foreach (Node pipe in pipesContainer.GetChildren())
         {
             pipe.QueueFree();

@@ -12,7 +12,6 @@ public partial class HighScore : Label
     public void setHighScore(int newScore)
     {
         highScore = newScore;
-        GD.Print("High score updated to: " + highScore);
         Text = "High Score: " + highScore.ToString();
     }
 }

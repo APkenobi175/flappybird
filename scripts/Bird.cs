@@ -19,8 +19,7 @@ public partial class Bird : CharacterBody2D
     public override void _Ready()
     {
 		startPosition = GlobalPosition;
-        audio = GetNode<Audio>("../Audio");
-        GD.Print("Bird node is ready!");
+        audio = GetNode<Audio>("../Audio"); // idk if this is the best way to do this, but it works
     }
 
     public override void _Process(double delta)
@@ -54,13 +53,9 @@ public partial class Bird : CharacterBody2D
 			Velocity = new Vector2(Velocity.X, flap_strength);
 			audio?.PlayFlap();
 		}
+		// Rotate the bird based on vertical velocity
 		float angle = Mathf.Clamp(Velocity.Y / 400f, -1f, 1f) * Mathf.DegToRad(45f);
 		Rotation = angle;
-
-		
-			
-			
-
 		MoveAndSlide();
 
 		// Ceiling clamp
@@ -76,22 +71,13 @@ public partial class Bird : CharacterBody2D
 			return;
 		}
 
-		// After death: when we hit the ground, and then show game over
-		// GameOverSent ensures we only play the death animation once
+		// GameOverSent ensures we only play the death animation once, don't play animation until bird hits the ground
 		if (isDead && IsOnFloor() && !gameOverSent)
 		{
 			gameOverSent = true;
 			GD.Print("Bird has hit the ground after death.");
 			GetNode<Main>("/root/Main").GameOver();
 		}
-	}
-
-
-	public override void _Draw()
-	{
-		base._Draw();
-		//GD.Print("Player is being drawn");
-		DrawCircle(Vector2.Zero, 10, Colors.Blue);
 	}
 
     public void die()
