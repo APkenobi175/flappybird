@@ -30,8 +30,6 @@ public partial class Main : Node2D
 
         bird = GetNode<Bird>("bird"); // get reference to the bird node in the scene tree
         bird.canMove = false; // initially the bird can't move until the game starts
-        GD.Print("Bird canMove set to" + bird.canMove.ToString());
-
         ui = GetNode<Ui>("Ui"); // get reference to the Ui node in the scene tree
         // Press the flap action to start the game
         ui.ShowStart(); // show the start screen

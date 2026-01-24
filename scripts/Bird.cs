@@ -75,7 +75,6 @@ public partial class Bird : CharacterBody2D
 		if (isDead && IsOnFloor() && !gameOverSent)
 		{
 			gameOverSent = true;
-			GD.Print("Bird has hit the ground after death.");
 			GetNode<Main>("/root/Main").GameOver();
 		}
 	}
@@ -87,7 +86,6 @@ public partial class Bird : CharacterBody2D
 		isDead = true;
 		canMove = false;
 		Velocity = Vector2.Zero;
-		GD.Print("Bird has died.");
 		GetNode<Main>("/root/Main").OnBirdDied();
 		}
 
