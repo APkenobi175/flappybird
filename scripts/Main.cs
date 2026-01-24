@@ -18,11 +18,21 @@ public partial class Main : Node2D
     private SafeZone safeZone; // reference to the safe zone node
     private Parallax2D groundParallax;
     private Ground ground;
+    private bool gameStarted = false;
+
+    public int highScore;
+    private HighScore highScoreLabel;
+
+    public bool newHighScore = false;
+    private Sky sky;
 
 
     public override void _Ready()
     {
         ground = GetNode<Ground>("Ground");
+        sky = GetNode<Sky>("Sky");
+        sky.StartScrolling(50f);
+        highScoreLabel = GetNode<HighScore>("Ui/Root/StartPanel/HighScore");
 
         GetNode<Timer>("pipe_spawner").Stop(); // stop the pipe spawner timer initially
 
@@ -31,21 +41,15 @@ public partial class Main : Node2D
         GD.Print("Bird canMove set to" + bird.canMove.ToString());
 
         ui = GetNode<Ui>("Ui"); // get reference to the Ui node in the scene tree
-        ui.StartButton.Pressed += StartGame; // connect the StartButton's Pressed signal to the StartGame method
-        ui.RetryButton.Pressed += RestartGame; // connect the RetryButton's Pressed signal to the RestartGame method
-
+        // Press the flap action to start the game
         ui.ShowStart(); // show the start screen
 
-
-
-        // Create a field to hold the pipes container 
-        // To create a node2d reference use the following syntax:
+        ui.RetryButton.Pressed += RestartGame; // connect the RetryButton's Pressed signal to the RestartGame method
         pipesContainer = GetNode<Node2D>("pipes"); // in the scene tree in main this is the pipes 2d node, now that we have access to it we can modify it at runtime
 
 
         // call randomize once so that each time we run the game the randonm numbers are different
         GD.Randomize();
-        GD.Print("Main node is ready!");
         
         scoreLabel = GetNode<ScoreLabel>("Score/score_label"); // get reference to score label node in scene tree
         scoreLabel.setScore(score); 
@@ -54,6 +58,11 @@ public partial class Main : Node2D
 
     public override void _Process(double delta)
     {
+        if (Input.IsActionJustPressed("flap") && !gameStarted) // if flap is pressed and game hasn't started yet, start the game
+        {
+            StartGame();
+            gameStarted = true;
+        }
 
     }
 
@@ -78,24 +87,15 @@ public partial class Main : Node2D
         pipesContainer.AddChild(pipe);
         pipe.GlobalPosition = new Vector2(spawnX, spawnY); // set the position of the pipe to the spawn coordinates
          // add the pipe as a child of the pipes container so it appears in the scene (which remember is called "pipes" in the main scene tree)
-        GD.Print("Spawned a new pipe pair at y: " + spawnY);
         var safeZone = pipe.GetNode<Area2D>("safe_zone"); // get reference to the safe zone node in the pipe pair
         safeZone.BodyEntered += OnScored; // connect the BodyEntered signal to the OnScored method
     }
-
-    public override void _UnhandledInput(InputEvent e)
-    {
-        if (e is InputEventMouseButton mb && mb.Pressed)
-            GD.Print(GetGlobalMousePosition());
-    }
-
     private void OnScored(Node body)
     {
 
         if (body is Bird){
         score += 1; // increment score by 1
         scoreLabel.setScore(score); // update score label
-        GD.Print("Score incremented to: " + score);
         }
     }
 
@@ -108,30 +108,42 @@ public partial class Main : Node2D
         scoreLabel.setScore(score); // update score label
         ui.ShowPlaying(); // show playing UI
         GetNode<Timer>("pipe_spawner").Start(); // start the pipe spawner timer
-        GD.Print("Bird canMove set to" + bird.canMove.ToString());
     }
 
     private void RestartGame()
     {
+        gameStarted = false;
         score = 0;
+        ui.ShowStart(); // show the start screen
         scoreLabel.setScore(score);
-        ui.ShowPlaying();
-
         foreach (Node pipe in pipesContainer.GetChildren())
+        {
             pipe.QueueFree();
-
-        bird.canMove = true;
+        }
+            
+        bird.canMove = false;
         bird.Reset();
+        newHighScore = false;
 
-        GetNode<Timer>("pipe_spawner").Start();
+
+        
     }
 
     public void GameOver()
     {
-        ui.ShowGameOver(score, true);
+        if (score > highScore)
+        {
+            highScore = score;
+            GD.Print("New high score: " + highScore);
+            highScoreLabel.setHighScore(highScore);
+            newHighScore = true;
+
+        }
+        ui.ShowGameOver(score, true, newHighScore);
         GetNode<Timer>("pipe_spawner").Stop();
 
         bird.canMove = false;
+        
         // Play the game over animation
     }
 
@@ -146,12 +158,16 @@ public partial class Main : Node2D
 
         // stop ground scroll
         ground.StopScrolling();
+        sky.StopScrolling();
+
     }
 
     internal void ResetGround()
     {
         // This will reset the ground scrolling, when the game is reset
         ground.StartScrolling(200f);
+        sky.StartScrolling(50f);
+
     }
 
 }

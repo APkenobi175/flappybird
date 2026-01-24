@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://carrwsnyks1s8"]
+
+[ext_resource type="Texture2D" uid="uid://b4lbm38rrpnbg" path="res://assets/backgrounds/Background1.png" id="1_8cavx"]
+[ext_resource type="Script" uid="uid://7q34d0pcnihs" path="res://scripts/Sky.cs" id="1_oi734"]
+
+[node name="Sky" type="Node2D"]
+script = ExtResource("1_oi734")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(11388.696, 0)
+
+[node name="TextureRect" type="TextureRect" parent="Parallax2D"]
+offset_left = -9.0
+offset_top = -29.0
+offset_right = 11379.696
+offset_bottom = 296.0
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("1_8cavx")
+stretch_mode = 1

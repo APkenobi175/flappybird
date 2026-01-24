@@ -12,18 +12,19 @@ script = ExtResource("1_mi8v4")
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1859, 5)
+position = Vector2(1798, 141)
 shape = SubResource("RectangleShape2D_7ylpw")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
-repeat_size = Vector2(1200, 0)
+repeat_size = Vector2(1999.667, 0)
 autoscroll = Vector2(-200, 0)
+repeat_times = 1000
 
 [node name="GroundA" type="TextureRect" parent="Parallax2D"]
-offset_left = -1003.0
-offset_top = -45.0
-offset_right = 197.0
-offset_bottom = -13.0
+offset_left = -1203.0
+offset_top = 93.0
+offset_right = 796.66675
+offset_bottom = 125.0
 scale = Vector2(3, 3)
 texture = ExtResource("1_pybca")
 stretch_mode = 1

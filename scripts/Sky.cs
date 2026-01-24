@@ -1,14 +1,14 @@
 using Godot;
 using System;
 
-public partial class Ground : Node2D
+public partial class Sky : Node2D
 {
     
     private Parallax2D parrallax;
 
     public override void _Ready()
     {
-        parrallax = GetNode<Parallax2D>("Parallax2D");  
+        parrallax = GetNode<Parallax2D>("Parallax2D");
     }
 
     public void StopScrolling()
@@ -20,4 +20,5 @@ public partial class Ground : Node2D
     {
         parrallax.Autoscroll = new Vector2(-speed, 0);
     }
+
 }

@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccniks3ikqf7r"]
+[gd_scene load_steps=10 format=3 uid="uid://ccniks3ikqf7r"]
 
 [ext_resource type="Script" uid="uid://pc2gkkoe2qmp" path="res://scripts/Ui.cs" id="1_dj8aq"]
+[ext_resource type="Script" uid="uid://bcxoscyw0b2w5" path="res://scripts/HighScore.cs" id="2_ro3t7"]
 
 [sub_resource type="Theme" id="Theme_dj8aq"]
 
@@ -12,6 +13,57 @@ outline_size = 5
 outline_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
 [sub_resource type="Theme" id="Theme_ro3t7"]
+
+[sub_resource type="Animation" id="Animation_ro3t7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RetryButton:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect2/FinalScore:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_dj8aq"]
 resource_name = "you_died_animation"
@@ -65,57 +117,6 @@ tracks/3/keys = {
 "values": [false, true]
 }
 
-[sub_resource type="Animation" id="Animation_ro3t7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RetryButton:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect2/FinalScore:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ColorRect2:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5en4g"]
 _data = {
 &"RESET": SubResource("Animation_ro3t7"),
@@ -135,33 +136,51 @@ offset_bottom = 17.0
 
 [node name="StartPanel" type="Panel" parent="Root"]
 layout_mode = 0
-offset_left = 74.0
-offset_top = 140.0
-offset_right = 482.0
-offset_bottom = 548.0
+offset_left = 79.0
+offset_top = 266.0
+offset_right = 487.0
+offset_bottom = 393.0
 theme = SubResource("Theme_dj8aq")
 theme_override_styles/panel = SubResource("StyleBoxFlat_ro3t7")
-
-[node name="StartButton" type="Button" parent="Root/StartPanel"]
-layout_mode = 0
-offset_left = 81.0
-offset_top = 283.0
-offset_right = 331.0
-offset_bottom = 344.0
-text = "PLAY"
 
 [node name="Label" type="Label" parent="Root/StartPanel"]
 texture_filter = 2
 layout_mode = 0
-offset_left = 77.0
-offset_top = 26.0
-offset_right = 328.0
-offset_bottom = 153.0
-text = "Flappy Bird Clone
-By: Ammon Phipps"
+offset_left = -2.0
+offset_top = 1.0
+offset_right = 270.6667
+offset_bottom = 24.0
+scale = Vector2(1.5, 1.5)
+text = "Flappy Bird Clone"
 label_settings = SubResource("LabelSettings_5en4g")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Root/StartPanel"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 74.0
+offset_top = 93.0
+offset_right = 325.0
+offset_bottom = 157.0
+text = "Click To Start
+"
+label_settings = SubResource("LabelSettings_5en4g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScore" type="Label" parent="Root/StartPanel"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 74.0
+offset_top = 46.0
+offset_right = 325.0
+offset_bottom = 75.0
+text = "High Score: 0"
+label_settings = SubResource("LabelSettings_5en4g")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_ro3t7")
 
 [node name="GameOverPanel" type="CanvasLayer" parent="Root"]
 
@@ -227,3 +246,10 @@ vertical_alignment = 1
 libraries = {
 &"": SubResource("AnimationLibrary_5en4g")
 }
+
+[node name="NEWHIGHSCORE" type="Label" parent="Root/GameOverPanel"]
+offset_left = 468.0
+offset_top = 4.0
+offset_right = 631.0
+offset_bottom = 27.0
+text = "* NEW HIGH SCORE *"
