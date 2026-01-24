@@ -13,10 +13,13 @@ public partial class Bird : CharacterBody2D
 
 	private bool gameOverSent = false;
 
+	private Audio audio;
+
 
     public override void _Ready()
     {
 		startPosition = GlobalPosition;
+        audio = GetNode<Audio>("../Audio");
         GD.Print("Bird node is ready!");
     }
 
@@ -35,7 +38,7 @@ public partial class Bird : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		// Before start: freeze in place (no gravity, no collisions)
+		// Before start: freeze in place
 		if (!canMove && !isDead)
 		{
 			Velocity = Vector2.Zero;
@@ -47,10 +50,15 @@ public partial class Bird : CharacterBody2D
 
 		// Only flap if alive + allowed
 		if (!isDead && canMove && Input.IsActionJustPressed("flap"))
+		{
 			Velocity = new Vector2(Velocity.X, flap_strength);
-			// Rotate the bird based on vertical velocity
-			float angle = Mathf.Clamp(Velocity.Y / 400f, -1f, 1f) * Mathf.DegToRad(45f);
-			Rotation = angle;
+			audio?.PlayFlap();
+		}
+		float angle = Mathf.Clamp(Velocity.Y / 400f, -1f, 1f) * Mathf.DegToRad(45f);
+		Rotation = angle;
+
+		
+			
 			
 
 		MoveAndSlide();

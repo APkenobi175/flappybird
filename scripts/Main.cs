@@ -26,11 +26,14 @@ public partial class Main : Node2D
     public bool newHighScore = false;
     private Sky sky;
 
+    private Audio audio;
+
 
     public override void _Ready()
     {
         ground = GetNode<Ground>("Ground");
         sky = GetNode<Sky>("Sky");
+        audio = GetNode<Audio>("Audio");
         sky.StartScrolling(50f);
         highScoreLabel = GetNode<HighScore>("Ui/Root/StartPanel/HighScore");
 
@@ -93,9 +96,12 @@ public partial class Main : Node2D
     private void OnScored(Node body)
     {
 
+
         if (body is Bird){
         score += 1; // increment score by 1
         scoreLabel.setScore(score); // update score label
+        audio.PlayScore();
+        GD.Print("Scored!");
         }
     }
 
@@ -147,8 +153,10 @@ public partial class Main : Node2D
         // Play the game over animation
     }
 
-        public void OnBirdDied()
+        public async void OnBirdDied()
     {
+        audio.PlayDie();
+        GD.Print("Bird died!");
         // stop spawner
         GetNode<Timer>("pipe_spawner").Stop();
 
@@ -159,6 +167,8 @@ public partial class Main : Node2D
         // stop ground scroll
         ground.StopScrolling();
         sky.StopScrolling();
+        await ToSignal(GetTree().CreateTimer(0.5f), "timeout"); // tiny delay before playing fall sound
+        audio.PlayFall();
 
     }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://155xx7s6y6ta"]
+[gd_scene load_steps=9 format=3 uid="uid://155xx7s6y6ta"]
 
 [ext_resource type="Script" uid="uid://dj0cn2w4p1sbj" path="res://scripts/Main.cs" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bop0q5beb7hyl" path="res://scenes/pipe_pare.tscn" id="2_jyhfs"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c6kletm7vo5m0" path="res://scenes/SCORE.tscn" id="5_tefeu"]
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="6_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://ccniks3ikqf7r" path="res://scenes/UI.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://8xxyq56ew4v" path="res://scenes/Audio.tscn" id="8_tipki"]
 
 [node name="Main" type="Node2D"]
 position = Vector2(575, 322)
@@ -36,5 +37,7 @@ position = Vector2(-566, -306)
 [node name="pipe_spawner" type="Timer" parent="."]
 wait_time = 1.5
 autostart = true
+
+[node name="Audio" parent="." instance=ExtResource("8_tipki")]
 
 [connection signal="timeout" from="pipe_spawner" to="." method="_on_PipeSpawner_timeout"]

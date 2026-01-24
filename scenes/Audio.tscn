@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://8xxyq56ew4v"]
+
+[ext_resource type="Script" uid="uid://sh2gsu6t7igo" path="res://scripts/Audio.cs" id="1_8bdof"]
+[ext_resource type="AudioStream" uid="uid://c4a1ec3q2fnul" path="res://assets/audio/flap.mp3" id="2_l20ah"]
+[ext_resource type="AudioStream" uid="uid://cue4yi6xlpfr0" path="res://assets/audio/score.mp3" id="3_fdwst"]
+[ext_resource type="AudioStream" uid="uid://6uw63sxfnlrn" path="res://assets/audio/hit.mp3" id="4_b4ede"]
+[ext_resource type="AudioStream" uid="uid://c6hyr28dc8gx7" path="res://assets/audio/die.mp3" id="5_l20ah"]
+
+[node name="Audio" type="Node2D"]
+script = ExtResource("1_8bdof")
+
+[node name="Flap" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_l20ah")
+
+[node name="Score" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_fdwst")
+
+[node name="Die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_b4ede")
+
+[node name="Falling" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_l20ah")
